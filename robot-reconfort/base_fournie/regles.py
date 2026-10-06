@@ -1,3 +1,5 @@
+
+
 NB_EMOTIONS = 8
 DISTANCE_MAX = 2 
 NB_INTENSITES = 3 
@@ -54,3 +56,26 @@ def liste_candidats(e, i):
         resultat.append({"casier": (cle[2], e_prime), "repli": repli})
     return resultat
 #print(liste_candidats(3, 2)[:5] ) 
+def construire_index(dictionnaire):
+    """Retranscrit les formes et les émotions/intensités correspondantes 
+    dans un dictionnaire en associant à chaque forme (indice emtion,indice intensité) """
+    
+    emotions=dictionnaire["emotions"]
+    intensites= dictionnaire["intensites"]
+
+    index_formes= {}
+    for entree in dictionnaire["entrees"]:
+        e = emotion_to_indice(entree["emotion"], emotions)
+        i = intensites.index(entree["intensite"])
+        for forme in entree["formes"]:
+            # (e indice de l'emotion sur la roue, i indice intensité {0,1,2})
+            index_formes[forme] = (e, i)
+    return index_formes
+def lire_emotion(mots, index_formes):
+    """ Prends en paramétre la phrase normalisée et le dictionnaire formes->(e,i);
+        Renvoie (indice emotion, rang intensité) du premier mot
+        reconnu dans la phrase , ou None si aucun ne l'est."""
+    for mot in mots:
+        if mot in index_formes:
+            return index_formes[mot]
+    return None
