@@ -1,4 +1,6 @@
 NB_EMOTIONS = 8
+DISTANCE_MAX = 2 
+NB_INTENSITES = 3 
 def emotion_to_indice (emotion,emotions):
     return emotions.index(emotion)
 
@@ -16,7 +18,39 @@ def sens_horaire(e1,e2):
         return 1
     else:
         return -1
+def emotions_candidates(e):
+    """reçoit indice emotion et return la liste des indices des emotions candidates """
+    candidates=[]
+    for e_prime in range(NB_EMOTIONS):
+        if distance_roue(e, e_prime) <= DISTANCE_MAX:
+            candidates.append(e_prime)
+    return candidates
+ 
 
 
+def liste_candidats(e, i):
+    """Renvoie casiers candidats pour une demande (e, i) triés selon
+    les 4 critéres donnés"""
+    candidats = []
+    for e_prime in emotions_candidates(e):
+        distance = distance_roue(e, e_prime)
+        sens = sens_horaire(e, e_prime)
+        for i_prime in range(NB_INTENSITES):
+            ecart = abs(i - i_prime)
+            #-sens pour faire passer l'horaire avant anti horaire vu qu'on renvoie 1 pr horaire qui est > -1 du anti horaire 
+            cle = (distance, ecart, i_prime, -sens)
+            candidats.append((cle, e_prime))
 
-    
+    candidats.sort()
+
+    resultat = []
+    for cle, e_prime in candidats:
+        if cle[0]== 0 and cle[2]==i:
+            repli ="aucun"
+        elif cle[0] == 0:
+            repli= "intensite"
+        else:
+            repli="voisine_" + str(cle[0])
+        resultat.append({"casier": (cle[2], e_prime), "repli": repli})
+    return resultat
+#print(liste_candidats(3, 2)[:5] ) 
