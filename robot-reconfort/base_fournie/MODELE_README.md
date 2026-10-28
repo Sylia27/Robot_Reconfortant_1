@@ -1,10 +1,10 @@
-# Robot de réconfort — NOM1 & NOM2
+# Robot de réconfort — SAD & SAHNOUNE
 
 Projet de semestre, master informatique. Un robot à perception locale
 consulte un dictionnaire, fouille une armoire et rapporte un objet à un
 résident.
 
-Langage : *à compléter* — Version : *à compléter*
+Langage : *Pyhton* — Version : **
 
 ## Lancer
 
@@ -22,16 +22,22 @@ Dépendances : *aucune*, ou la liste et comment les installer.
 
 ## Tester
 
-```
-<votre commande de test>
+``'
+// depuis base_fournie
+cd robot-reconfort
+cd base_fournie
+python -m unittest discover -s tests  
 ```
 
-*Une phrase sur ce que couvrent les tests.*
-
+*Une phrase sur ce que couvrentn; les tests.*
+les tets unitaires couvrent les régles de décisio
 ## Organisation du code
 
 | Fichier | Rôle |
-|---|---|
+|'regles.py'| roue de Plutchik|
+|'armoire.py'|mouvement selecteur et repli|
+|'environnement.py'|simulateur|
+|'memoire.py'|memoire du robot : carte mentale,armoire mentale, cases deja vus, mains libres ou pas |
 | `agent.py` | point d'entrée, boucle de décision |
 | `…` | … |
 
