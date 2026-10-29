@@ -64,8 +64,21 @@ def _phase_dictionnaire(memoire, demande, index_formes):
         demande.candidats= liste_candidats(demande.emotion, demande.intensite)
         demande.phase=ARMOIRE
         return _phase_armoire(memoire, demande)
-
+def _verifier_resident(memoire, demande):                             
+    """Pour s'assurer que le résident est atteignable,renvoie une action à jouer,
+    ou None si c'est déjà vérifié"""
+    if demande.id_resident in memoire.residents_atteints:
+        return None
+    statut, d= deplacer_vers(memoire, memoire.residents[demande.id_resident])
+    if statut=="avancer":
+        return ("AVANCER", d)
+    if statut=="inaccessible":
+        return ("ECHEC", "resident inaccessible")
+    return None 
 def _phase_armoire(memoire, demande):
+        verification = _verifier_resident(memoire, demande)               
+        if verification is not None:
+            return verification
         statut, d = deplacer_vers(memoire, memoire.pos_armoire)
         if statut =="avancer":
             return ("AVANCER", d)
@@ -83,12 +96,6 @@ def _phase_armoire(memoire, demande):
         casier = cible["casier"]
         if memoire.armoire.selecteur != casier:
             return ("CHERCHER", prochaine_direction(memoire.armoire.selecteur, casier))
-
-        
-        position_resident = memoire.residents[demande.id_resident]
-        if deplacer_vers(memoire, position_resident)[0] == "inaccessible":
-            return ("ECHEC", "resident inaccessible")   
-
         objet= memoire.armoire.vus[casier]
         demande.casier_choisi =casier
         demande.repli =cible["repli"]

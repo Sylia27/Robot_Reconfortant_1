@@ -1,3 +1,4 @@
+import reconfort_io as rio
 def extraire_infos_initiales(carte, armoire):
     """pour garder uniquement ce que l'agent a le droit de savoir au départ"""
     residents = {}
@@ -12,3 +13,8 @@ def extraire_infos_initiales(carte, armoire):
         "residents":residents,
         "casier_depart":tuple(armoire["casier_depart"]),
     }
+def charger_infos_initiales(chemin_carte, chemin_armoire):     
+    """Charge la carte et l'armoire, puis ne renvoie que ce que le robot à le droit de savoir S"""
+    carte =rio.charger_carte(chemin_carte)
+    armoire= rio.charger_armoire(chemin_armoire)
+    return extraire_infos_initiales(carte, armoire)

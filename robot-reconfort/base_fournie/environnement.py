@@ -1,3 +1,4 @@
+import reconfort_io as rio  
 from armoire import deplacer_selecteur
 
 SYMBOLES = {"#": "mur", ".": "libre", "R": "libre",
@@ -98,3 +99,8 @@ class Environnement:
                 if abs(lr - lp) + abs(cr - cp) != 1:
                     raise ActionIllegale("DONNER : pas adjacent au résident " + self.resident_cible)
                 self.porte = None
+def charger_environnement(chemin_carte, chemin_armoire):     # [AJOUTÉ] fonction entière, SANS indentation
+    """Charge la carte et l'armoire, puis construit le simulateur."""
+    carte=rio.charger_carte(chemin_carte)
+    armoire= rio.charger_armoire(chemin_armoire)
+    return Environnement(carte, armoire)

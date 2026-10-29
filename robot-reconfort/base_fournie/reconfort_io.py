@@ -98,7 +98,7 @@ def _lire_json(chemin: str | Path, format_attendu: str) -> Dict[str, Any]:
         )
 
     version = donnees.get("version")
-    if version != VERSION_ATTENDUE:
+    if type(version) is not int or version != VERSION_ATTENDUE:
         raise ErreurFichier(
             f"{chemin} : version {VERSION_ATTENDUE} attendue, trouve {version!r}"
         )

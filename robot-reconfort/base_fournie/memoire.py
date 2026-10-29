@@ -69,6 +69,7 @@ class Memoire:
         self.pos_armoire= infos_init["armoire"]
         self.pos_dictionnaire =infos_init["dictionnaire"]
         self.residents =infos_init["residents"]
+        self.residents_atteints = set()  
         obstacles= {self.pos_armoire, self.pos_dictionnaire}
         for id_resident in self.residents:
             obstacles.add(self.residents[id_resident])
@@ -80,6 +81,10 @@ class Memoire:
     def integrer(self, perception, contenu):
         """Mettre à jour la mémoire avec ce que le robot perçoit à sa position"""
         self.carte.sauvegarde(self.position, perception)
+        for id_resident in self.residents:     
+            ligne_r, colonne_r = self.residents[id_resident]
+            if abs(ligne_r - self.position[0]) + abs(colonne_r - self.position[1]) == 1:
+                self.residents_atteints.add(id_resident)
         if "armoire" in perception.values():
             self.armoire.noter(self.armoire.selecteur, contenu)
 
