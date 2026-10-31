@@ -68,6 +68,7 @@ class TestChoisirAction(unittest.TestCase):
         """Robot adjacent à l'armoire, phase ARMOIRE, candidats calculés."""
         m, d = creer_memoire(), Demande(1, "R1", [])
         m.position = (3, 3)
+        m.residents_atteints.add("R1")  
         d.phase = ARMOIRE
         d.candidats = liste_candidats(e, i)
         return m, d
@@ -133,6 +134,7 @@ class TestChoisirAction(unittest.TestCase):
 
     def test_resident_deja_inaccessible_on_ne_prend_rien(self):
         m, d = self.preparer_fouille(4, 1)
+        m.residents_atteints.discard("R1")
         m.carte.murs.add((4, 7))
         m.carte.murs.add((5, 6))
         m.armoire.selecteur = (1, 4)

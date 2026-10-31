@@ -1,0 +1,109 @@
+{
+  "format": "robot-reconfort/scenario",
+  "version": 1,
+  "nom": "scenario_labyrinthe",
+  "carte": "labyrinthe",
+  "armoire": "armoire_trouee",
+  "demandes": [
+    {
+      "numero": 1,
+      "resident": "R2",
+      "message": "Je suis heureux, tout va bien."
+    },
+    {
+      "numero": 2,
+      "resident": "R1",
+      "message": "J'ai confiance en vous."
+    },
+    {
+      "numero": 3,
+      "resident": "R5",
+      "message": "Je suis terrifiée, il y a quelqu'un dehors."
+    },
+    {
+      "numero": 4,
+      "resident": "R2",
+      "message": "Je suis sidéré, la télévision s'est allumée."
+    },
+    {
+      "numero": 5,
+      "resident": "R1",
+      "message": "Cette odeur me dégoûte."
+    },
+    {
+      "numero": 6,
+      "resident": "R5",
+      "message": "Je suis furieux, on a oublié mon repas."
+    },
+    {
+      "numero": 7,
+      "resident": "R2",
+      "message": "Je vis dans l'attente, j'espère une visite."
+    },
+    {
+      "numero": 8,
+      "resident": "R1",
+      "message": "Je guette le moindre bruit."
+    },
+    {
+      "numero": 9,
+      "resident": "R5",
+      "message": "Je me sens seule ce soir."
+    },
+    {
+      "numero": 10,
+      "resident": "R2",
+      "message": "Je suis désespérée."
+    },
+    {
+      "numero": 11,
+      "resident": "R2",
+      "message": "Je ne suis pas en colère du tout."
+    },
+    {
+      "numero": 12,
+      "resident": "R1",
+      "message": "Je suis écœurée par cette odeur."
+    },
+    {
+      "numero": 13,
+      "resident": "R5",
+      "message": "Bonjour, quelle belle journée."
+    },
+    {
+      "numero": 14,
+      "resident": "R2",
+      "message": "Je suis content mais très inquiet."
+    },
+    {
+      "numero": 15,
+      "resident": "R3",
+      "message": "Je suis heureux."
+    },
+    {
+      "numero": 16,
+      "resident": "R4",
+      "message": "J'ai confiance en vous."
+    },
+    {
+      "numero": 17,
+      "resident": "R6",
+      "message": "Je suis ravi."
+    },
+    {
+      "numero": 18,
+      "resident": "R3",
+      "message": "Je me sens seule."
+    },
+    {
+      "numero": 19,
+      "resident": "R1",
+      "message": "Je suis heureux."
+    },
+    {
+      "numero": 20,
+      "resident": "R5",
+      "message": "Je suis ravi."
+    }
+  ]
+}
