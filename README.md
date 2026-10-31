@@ -1,59 +1,73 @@
-# HAI716-Projet-Agent
+# Robot de réconfort — SAD & SAHNOUNE
 
-# Projet Le robot de réconfort
+Projet de semestre, master informatique. Un robot à perception locale
+consulte un dictionnaire, fouille une armoire et rapporte un objet à un
+résident.
 
-Code de départ du projet de semestre. Un robot à perception locale traverse
-un appartement, consulte un dictionnaire pour lire l'émotion d'un message,
-fouille une armoire et rapporte l'objet au résident.
+Langage : *Pyhton* — Version : *3.11.5*
 
-**L'énoncé complet est dans [`ENONCE.pdf`](ENONCE.pdf). Lisez-le d'abord.**
-
-## Récupérer le code
-
-```
-git clone <URL du dépôt>
+## Lancer
+Lancer depuis Base_fournie: 
 cd robot-reconfort
-python base_fournie/demo.py \
-    base_fournie/cartes/appartement_01.json \
-    base_fournie/cartes/scenario_01.json \
-    base_fournie/donnees \
-    sortie.json
+cd base_fournie
+
+```
+python agent.py <carte.json> <scenario.json> <dossier_donnees> <trace_sortie.json>
 ```
 
-La démo ne résout rien : elle charge les quatre fichiers et écrit une trace
-où toutes les demandes échouent. C'est le squelette à remplir.
+Exemple :
 
-Python 3.9 ou plus, aucune dépendance externe. Vous pouvez travailler dans
-un autre langage : seul le contrat d'appel (section 2 de l'énoncé) est
-imposé.
+```
+python agent.py cartes/appartement_01.json cartes/scenario_01.json donnees sortie.json
+```
 
-## Contenu
+Dépendances : *aucune* 
+Pour rejouer une trace à l'écran (utilisé pour la vidéo) :
 
-| | |
-|---|---|
-| `ENONCE.pdf` | l'énoncé, projet 1 et projet 2 |
-| `base_fournie/reconfort_io.py` | lecture des fichiers d'entrée, écriture de la trace |
-| `base_fournie/demo.py` | exemple d'utilisation |
-| `base_fournie/donnees/` | dictionnaire et armoire |
-| `base_fournie/cartes/` | cinq appartements et leurs scénarios |
-| `base_fournie/rendu.json` | modèle à compléter pour le rendu |
-| `base_fournie/MODELE_README.md` | squelette du README de votre dépôt |
+```
+python affichage.py cartes/appartement_01.json cartes/scenario_01.json donnees sorties/trace_01.json --delai 0.3
+```
+
+## Tester
+
+``'
+// depuis base_fournie
+cd robot-reconfort
+cd base_fournie
+python -m unittest discover -s tests  
+```
 
 
-## Travailler
+les tets  couvrent la mémoire,la décision et le simulateur.
+## Organisation du code
 
-Ne travaillez pas dans ce dépôt. Créez le vôtre, et copiez-y `base_fournie/`.
+| Fichier | Rôle |
+| `agent.py` |  valide les fichiers, puis boucle perception → mémoire → décision → action |
+| `validation.py` | validation des fichiers d'entrée  |
+| `infos_initiales.py` | ne garde que ce que le robot a le droit de connaître au départ |
+| `environnement.py` | simulateur : monde réel, répond aux perceptions et valide les actions |
+| `memoire.py` | mémoire du robot : carte mentale, armoire mentale, position, objet porté, résidents atteints |
+| `planification.py` | plus court chemin par parcours en largeur |
+| `decision.py` | choix de l'action : dictionnaire, vérification du résident, armoire, livraison |
+| `action.py` | exécution d'une action et journalisation dans la trace |
+| `regles.py` | lecture du message  et liste ordonnée des casiers candidats sur la roue de Plutchik |
+| `armoire.py` | déplacement du sélecteur  |
+| `dictionnaire.py` | lecture du dictionnaire, après le `CONSULTER` |
+| `reconfort_io.py` | lecture des fichiers et écriture de la trace  |
+| `affichage.py` | rejoue une trace à l'écran |
 
-Rappel: votre historique Git fait partie du rendu. 
 
-## Deux interdits
+## État
 
-Votre agent n'a le droit de lire **ni le champ `grille`** de la carte, **ni
-le champ `objet`** des casiers. Il découvre les murs case par case à travers
-ses perceptions, et le contenu des casiers en se plaçant devant. Sections
-3.2 et 3.3 de l'énoncé ; c'est vérifié à la correction.
+**Ce qui marche.** 
+ Avec les cartes fournies  toutes les demandes sont livrées (29 sur 29).
 
-## Si l'algorithmique des graphes vous est nouvelle
+- Résident inaccessible : le parcours en largeur ne trouve pas de chemin, sans rien prendre.
+- Perception locale : l'agent ne lit ni la grille ni le contenu des casiers.
+- Validation des fichiers d'entrée (section 5.6).
+**Ce qui ne marche pas.**
+ — Ce qui n'a pas été couvert par les tests: lecture du dictionnaire,régle de repli,déplacement du sélecteur et validations des fichiers (pour les fichiers ils ont été testé à la main)
 
-Lisez les annexes de l'énoncé avant d'écrire quoi que ce soit : parcours en
-largeur, exemple déroulé, pseudo-code et replanification. Tout y est.
+## Vidéo
+
+`https://youtu.be/ZBigNf5V4tk` (ou le lien), également déclarée dans `rendu.json`.
