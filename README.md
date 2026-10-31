@@ -30,10 +30,11 @@ python affichage.py cartes/appartement_01.json cartes/scenario_01.json donnees s
 
 ## Tester
 
-``'
+
 // depuis base_fournie
 cd robot-reconfort
 cd base_fournie
+```
 python -m unittest discover -s tests  
 ```
 
